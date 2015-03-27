@@ -25,29 +25,38 @@ int main(){
 	float avgRating;
 	bool isFiction;
 	
+	cout << "Is the book novel or textbook? Write N for Novel and T for TextBook: ";
+	cin >> novelOrTB;
 	
-	getAuthorDetails(authorName, authorEmail, authorGender);
-	Author a1(authorName, authorEmail, authorGender);
-	
-	getBookDetails(bookName, publication, bookPrice, bookQty, novelOrTB);	
-	
-	if (novelOrTB=='N'){
-		
-			getNovelDetails(category, bookLvl, avgRating, isFiction);
-			Novel n1(bookName, a1, bookPrice, bookQty, publication, category, bookLvl, isFiction, avgRating);
-			cout << n1.toString();	
-			cout <<endl<< "The total worth of the book " << bookName << " is " << n1.getWorth();	
-	}
-	else if (novelOrTB=='T'){
-		
-			getTextBookDetails(category, bookLvl, bkEdition);			
-			TextBook t1(bookName, a1, bookPrice, bookQty, publication, category, bookLvl, bkEdition);
-			cout << t1.toString();
+	if (toupper(novelOrTB)!='N' && toupper(novelOrTB)!='T'){
+		cout << "Invalid";
+		exit(0);
 	}
 	else
-	{		
-			cout << "Invalid Entry!";	
+	{
+		cout << endl;
+		fflush(stdin);
+		getAuthorDetails(authorName, authorEmail, authorGender);
+		Author a1(authorName, authorEmail, authorGender);
+		
+		getBookDetails(bookName, publication, bookPrice, bookQty, novelOrTB);	
+		
+		if (toupper(novelOrTB)=='N'){
+			
+				getNovelDetails(category, bookLvl, avgRating, isFiction);
+				Novel n1(bookName, a1, bookPrice, bookQty, publication, category, bookLvl, isFiction, avgRating);
+				cout << n1.toString();	
+				cout <<endl<< "The total worth of the book " << bookName << " is " << n1.getWorth();	
+		}
+		else {
+			
+				getTextBookDetails(category, bookLvl, bkEdition);			
+				TextBook t1(bookName, a1, bookPrice, bookQty, publication, category, bookLvl, bkEdition);
+				cout << t1.toString();
+		}
+		
 	}
+	
 	
 }
 
@@ -70,8 +79,7 @@ void getBookDetails(string &bookName, string &publication, float &bookPrice, int
 	cin >> bookPrice;
 	cout << "Enter Book's Stock Quantity: ";
 	cin >> bookQty;
-	cout << "Is the book novel or textbook? Write N for Novel and T for TextBook: ";
-	cin >> novelOrTB;
+
 }
 
 void getNovelDetails(string &category, string &bookLvl, float &avgRating, bool &isFiction){
